@@ -1,46 +1,28 @@
 function zeroMatrix(matrix) {
-  const coordsToZero = new Set();
+  const rowsToZero = new Set();
+  const colsToZero = new Set();
 
   for (let y = 0; y < matrix.length; y++) {
     for (let x = 0; x < matrix[0].length; x++) {
       if (matrix[y][x] === 0) {
-        zeroCardinal(y, x, matrix, coordsToZero);
+        rowsToZero.add(y);
+        colsToZero.add(x);
       }
     }
   }
 
-  for (const [y, x] of coordsToZero) {
-    matrix[y][x] = 0;
+  for (const y of rowsToZero) {
+    for (let x = 0; x < matrix[0].length; x++) {
+      matrix[y][x] = 0;
+    }
+  }
+  for (const x of colsToZero) {
+    for (let y = 0; y < matrix.length; y++) {
+      matrix[y][x] = 0;
+    }
   }
 
   return matrix;
-}
-
-function zeroCardinal(yEpicenter, xEpicenter, matrix, coordsToZero) {
-  let y = yEpicenter;
-  let x = xEpicenter;
-  // north
-  while (--y >= 0) {
-    coordsToZero.add([y, x]);
-  }
-  y = yEpicenter;
-
-  // east
-  while (++x < matrix[0].length) {
-    coordsToZero.add([y, x]);
-  }
-  x = xEpicenter;
-
-  // south
-  while (++y < matrix.length) {
-    coordsToZero.add([y, x]);
-  }
-  y = yEpicenter;
-
-  // west
-  while (--x >= 0) {
-    coordsToZero.add([y, x]);
-  }
 }
 
 function printMatrix(input) {
