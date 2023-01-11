@@ -45,15 +45,11 @@ export class List {
   }
 
   deleteMiddle(node) {
-    let current = this.head;
-    while (current && current.next !== node) {
-      current = current.next;
-    }
-    if (!current || !current.next) return;
-    const nodeToDelete = current.next;
-    current.next = current.next.next;
-    nodeToDelete.value = null;
-    nodeToDelete.next = null;
+    const next = node.next;
+    node.value = next.value;
+    node.next = next.next;
+    next.value = null;
+    next.next = null;
   }
 
   getNodeByValue(value) {
