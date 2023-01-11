@@ -10,9 +10,22 @@ export class List {
     this.head = null;
   }
 
-  add(value) {
-    const node = isNaN(value) ? value : new Node(value);
+  isNode(input) {
+    if (input === null) return false;
+    if (typeof input !== 'object') return false;
 
+    const expectedKeys = Object.keys(new Node());
+    const inputKeys = Object.keys(input);
+    if (expectedKeys.length !== inputKeys.length) return false;
+    for (const key of expectedKeys) {
+      if (!inputKeys.includes(key)) return false;
+    }
+
+    return true;
+  }
+
+  add(value) {
+    const node = this.isNode(value) ? value : new Node(value);
     if (!this.head) {
       this.head = node;
     } else {
