@@ -11,7 +11,8 @@ export class List {
   }
 
   add(value) {
-    const node = new Node(value);
+    const node = isNaN(value) ? value : new Node(value);
+
     if (!this.head) {
       this.head = node;
     } else {
@@ -22,6 +23,16 @@ export class List {
       current.next = node;
       return current.next;
     }
+  }
+
+  getLength() {
+    let current = this.head;
+    let length = 0;
+    while (current) {
+      length++;
+      current = current.next;
+    }
+    return length;
   }
 
   getKthToLast(k) {
