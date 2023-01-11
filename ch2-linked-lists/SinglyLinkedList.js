@@ -20,6 +20,7 @@ export class List {
         current = current.next;
       }
       current.next = node;
+      return current.next;
     }
   }
 
@@ -61,6 +62,26 @@ export class List {
       current = current.next;
     }
     return current;
+  }
+
+  partition(value) {
+    const ltList = new List();
+    const gteList = new List();
+    let current = this.head;
+    let ltListTail;
+    // separate into
+    while (current) {
+      if (current.value < value) {
+        ltListTail = ltList.add(current.value);
+      } else {
+        gteList.add(current.value);
+      }
+      current = current.next;
+    }
+    // anneal lists
+    ltListTail.next = gteList.head;
+    gteList.head = null;
+    return ltList;
   }
 
   print() {
